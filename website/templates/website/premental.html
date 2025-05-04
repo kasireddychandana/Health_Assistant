@@ -1,0 +1,326 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Health Assistant</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <style>
+    /* Remove background image from body */
+    /* Ensure the body takes full height and centers the slider */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    /* Rectangular slider container, now relative to normal flow */
+    .slider-container {
+      width: 80%; /* Adjust width for responsiveness */
+      max-width: 1000px;
+      height: 400px; /* Rectangular shape */
+      position: relative;
+      margin: 50px auto 100px; /* Adds space below to prevent merging with the footer */
+    }
+    
+    /* Outer container with rounded corners & shadow */
+    .slider {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Slide wrapper */
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Individual slides */
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    /* Footer styling to ensure proper spacing */
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+      position: relative;
+      bottom: 0;
+    }
+    .txt {
+      font-weight: 1900; /* Maximum boldness */
+      color: black; /* Ensures black color */
+      font-size: 94px; /* Adjust size if needed */
+      text-transform: uppercase; /* Optional: Makes text uppercase */
+    }
+  
+    
+    
+    .slide img {
+      max-width: 100%; /* Ensure images are responsive */
+      max-height: 300px; /* Limit image height */
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .slide p {
+      font-size: 20px; /* Increased font size */
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .slide cite {
+      display: block;
+      margin-top: 15px;
+      font-size: 18px; /* Increased font size */
+      color: #666;
+    }
+
+    /* Navigation arrows outside the container */
+    .navigation {
+      position: absolute;
+      top: 50%;
+      left: -80px; /* Position arrows outside the container */
+      right: -80px;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 10; /* Ensure arrows are above other elements */
+    }
+
+    .navigation button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 15px; /* Larger padding for bigger arrows */
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 24px; /* Larger font size for arrows */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navigation button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffcc00; /* Change color on hover */
+    }
+
+    /* Footer styling */
+    footer {
+      margin-top: 50px; /* Add space between slider and footer */
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 80%;
+      max-width: 900px;
+    }
+  </style>
+</head>
+
+<body class="service-details-page">
+
+  <header id="header" class="header d-flex flex-column justify-content-center">
+
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+      <li><a href="http://127.0.0.1:8000/" class="active">
+        <i class="bi bi-house navicon"></i><span>Home</span>
+    </a></li>
+    
+    
+    <li><a href="http://127.0.0.1:8000/#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
+    <li><a href="http://127.0.0.1:8000/#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Diseases</span></a></li>
+    <li><a href="http://127.0.0.1:8000/#portfolio"><i class="bi bi-images navicon"></i><span>Predictions</span></a></li>
+    <li><a href="http://127.0.0.1:8000/#services"><i class="bi bi-hdd-stack navicon"></i><span>Precautions</span></a></li>
+    <li><a href="http://127.0.0.1:8000/contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
+    </ul>
+    </nav>
+
+  </header>
+
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="current">Mental Health Diseases</li>
+          </ol>
+        </nav>
+        <h1></h1>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Service Details Section -->
+    <section id="service-details" class="service-details section">
+      <p><b>Mental health diseases, also known as mental disorders or psychiatric disorders, are conditions that affect a person's thinking, emotions, behavior, and overall well-being. These disorders can impact daily life, relationships, and work productivity.
+      </p>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+            <!-- Slider Container -->
+            <div class="slider-container">
+              <div class="slider">
+                <div class="slides">
+                  <!-- Slide 1 -->
+                  <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2738337/" target="_blank">
+                  <div class="slide" style="background-image: url('{% static 'img/depression.jpg' %}');">
+                    <p  style="font-weight: 900; color: black; font-size: 60px; text-transform: uppercase;">
+                  Depression</p>
+                    
+                  </div>
+                </a>
+                  <!-- Slide 2 -->
+                  <a href="https://www.mayoclinic.org/diseases-conditions/schizophrenia/symptoms-causes/syc-20354443" target="_blank">
+                  <div class="slide" style="background-image: url('{% static 'img/Schizophrenia.jpg' %}');">
+                    <p  style="font-weight: 900; color: black; font-size: 60px; text-transform: uppercase;">
+                      Schizophrenia</p>
+      
+                  </div>
+                </a>
+                  <!-- Slide 3 -->
+                  <a href="https://www.mayoclinic.org/diseases-conditions/dry-eyes/symptoms-causes/syc-20371863" target="_blank">
+                  <div class="slide" style="background-image: url('{% static 'img/dryeye.jpg' %}');">
+                    <p  style="font-weight: 900; color: black; font-size: 60px; text-transform: uppercase;">
+                      Dry Eye</p>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Navigation arrows outside the container -->
+              <div class="navigation">
+                <button onclick="prevSlide()">&#10094;</button>
+                <button onclick="nextSlide()">&#10095;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Service Details Section -->
+  </main>
+
+  
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/typed.js/typed.umd.js' %}"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function showSlide(index) {
+      if (index >= totalSlides) {
+        currentSlide = 0;
+      } else if (index < 0) {
+        currentSlide = totalSlides - 1;
+      } else {
+        currentSlide = index;
+      }
+      slides.style.transform = `translateX(${-currentSlide * 100}%)`;
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function handleTouchStart(event) {
+      touchStartX = event.touches[0].clientX;
+    }
+
+    function handleTouchMove(event) {
+      touchEndX = event.touches[0].clientX;
+    }
+
+    function handleTouchEnd() {
+      if (touchEndX < touchStartX) {
+        nextSlide(); // Swipe left
+      } else if (touchEndX > touchStartX) {
+        prevSlide(); // Swipe right
+      }
+    }
+
+    // Add touch event listeners
+    const slider = document.querySelector('.slider');
+    slider.addEventListener('touchstart', handleTouchStart, false);
+    slider.addEventListener('touchmove', handleTouchMove, false);
+    slider.addEventListener('touchend', handleTouchEnd, false);
+
+    // Automatically slide every 5 seconds
+    setInterval(() => {
+      nextSlide();
+    }, 3000); // Change slide every 5 seconds
+  </script>
+</body>
+</html>

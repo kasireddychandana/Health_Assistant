@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Health Assistant</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  
+  <style>
+    /* Fullscreen video background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Contact form styling */
+    .contact-form {
+      max-width: 900px;
+      margin: 50px auto;
+      margin-left:50px;
+      padding: 50px;
+      background: rgba(95, 106, 127, 0.9);
+      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .error {
+      border: 2px solid red;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+
+  <script>
+    function validateForm() {
+      var isValid = true;
+      var email = document.getElementById("email");
+      var name = document.getElementById("name");
+      var message = document.getElementById("message");
+      var nameError = document.getElementById("nameError");
+      var emailError = document.getElementById("emailError");
+      var messageError = document.getElementById("messageError");
+      var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+      // Reset previous error styles
+      email.classList.remove("error");
+      name.classList.remove("error");
+      message.classList.remove("error");
+      nameError.style.display = "none";
+      emailError.style.display = "none";
+      messageError.style.display = "none";
+      
+      if (name.value.trim() === "") {
+        name.classList.add("error");
+        nameError.style.display = "block";
+        isValid = false;
+      }
+      if (!pattern.test(email.value)) {
+        email.classList.add("error");
+        emailError.style.display = "block";
+        isValid = false;
+      }
+      if (message.value.trim() === "") {
+        message.classList.add("error");
+        messageError.style.display = "block";
+        isValid = false;
+      }
+      return isValid;
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- Background Video -->
+  <video class="video-background" autoplay loop muted>
+    <source src="{% static 'img/Doctor.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header id="header" class="header d-flex flex-column justify-content-center">
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="/" class="active"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
+        <li><a href="/#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
+        <li><a href="/#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Diseases</span></a></li>
+        <li><a href="/#portfolio"><i class="bi bi-images navicon"></i><span>Predictions</span></a></li>
+        <li><a href="/#services"><i class="bi bi-hdd-stack navicon"></i><span>Precautions</span></a></li>
+        <li><a href="/#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="page-title" data-aos="fade">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="current">Precautions</li>
+          </ol>
+        </nav>
+        <h1>Contact Us...</h1>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h2>Contact Us</h2>
+      <form action="{% url 'contact' %}" method="post" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+          <span id="nameError" class="error-message">Name is required.</span>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+          <span id="emailError" class="error-message">Please enter a valid email address.</span>
+        </div>
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input type="text" class="form-control" id="subject" name="subject" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+          <span id="messageError" class="error-message">Message cannot be empty.</span>
+        </div>
+        
+        <div class="mb-3">
+          <h4>Which Predictions Have You Used?</h4>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="heart_model" value="heart_model">
+            <label class="form-check-label" for="heart_model">Heart Disease</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="hiv_model" value="hiv_model">
+            <label class="form-check-label" for="hiv_model">HIV/AIDS</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="skin_model" value="skin_model">
+            <label class="form-check-label" for="skin_model">Skin Disease</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="breast_model" value="breast_model">
+            <label class="form-check-label" for="breast_model">Breast Cancer</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="corona_model" value="corona_model">
+            <label class="form-check-label" for="corona_model">COVID-19</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="lung_model" value="lung_model">
+            <label class="form-check-label" for="lung_model">Lung Disease</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="obesity_model" value="obesity_model">
+            <label class="form-check-label" for="obesity_model">Obesity</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="prostate_model" value="prostate_model">
+            <label class="form-check-label" for="prostate_model">Prostate Cancer</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="malaria_model" value="malaria_model">
+            <label class="form-check-label" for="malaria_model">Malaria</label>
+          </div>
+        
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="selected_options" id="diabetes_model" value="diabetes_model">
+            <label class="form-check-label" for="diabetes_model">Diabetes</label>
+          </div>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>
